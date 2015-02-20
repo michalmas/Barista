@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barista.Foundation", "Barista.Foundation\Barista.Foundation.csproj", "{C8DF6B53-3A5D-4E26-86CF-57A2E4ACCE9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barista.Foundation", "Barista.Foundation\Barista.Foundation.csproj", "{365349F9-80A1-4A8E-9113-ADDD0E14DFFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barista.Foundation.Specs", "Barista.Foundation.Specs\Barista.Foundation.Specs.csproj", "{2C808C04-8A8C-4B81-9C63-9F1122F5C57E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C8DF6B53-3A5D-4E26-86CF-57A2E4ACCE9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8DF6B53-3A5D-4E26-86CF-57A2E4ACCE9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8DF6B53-3A5D-4E26-86CF-57A2E4ACCE9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8DF6B53-3A5D-4E26-86CF-57A2E4ACCE9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365349F9-80A1-4A8E-9113-ADDD0E14DFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365349F9-80A1-4A8E-9113-ADDD0E14DFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365349F9-80A1-4A8E-9113-ADDD0E14DFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365349F9-80A1-4A8E-9113-ADDD0E14DFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C808C04-8A8C-4B81-9C63-9F1122F5C57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C808C04-8A8C-4B81-9C63-9F1122F5C57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C808C04-8A8C-4B81-9C63-9F1122F5C57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C808C04-8A8C-4B81-9C63-9F1122F5C57E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
