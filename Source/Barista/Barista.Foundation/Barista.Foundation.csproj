@@ -54,6 +54,8 @@
       <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,7 +65,28 @@
   <ItemGroup>
     <Compile Include="Common\Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Common\Exceptions\Error.cs" />
+    <Compile Include="Common\Exceptions\ExceptionExtensions.cs" />
+    <Compile Include="Common\Extensions\EventSourcingExtensions.cs" />
+    <Compile Include="Common\Extensions\FuncExtensions.cs" />
+    <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\SystemTime.cs" />
+    <Compile Include="DataAccess\DomainUnitOfWork.cs" />
+    <Compile Include="DataAccess\IUnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\StatefulUnitOfWork.cs" />
+    <Compile Include="DataAccess\UnitOfWork.cs" />
+    <Compile Include="DataAccess\UnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\UnitOfWorkOption.cs" />
+    <Compile Include="Domain\AggregateState.cs" />
+    <Compile Include="Domain\EventAppliedArgs.cs" />
+    <Compile Include="Domain\EventMappingCache.cs" />
+    <Compile Include="Domain\EventSource.cs" />
+    <Compile Include="Domain\Events\Event.cs" />
+    <Compile Include="Domain\Events\IDomainEvent.cs" />
+    <Compile Include="Domain\GuidKey.cs" />
+    <Compile Include="Domain\IAggregateRoot.cs" />
+    <Compile Include="Domain\IAggregateRootKey.cs" />
+    <Compile Include="Domain\IEventSource.cs" />
+    <Compile Include="EventSourcing\EventStoreDataMapper.cs" />
     <Compile Include="DataAccess\IDataMapper.cs" />
     <Compile Include="DataAccess\IPersistable.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
@@ -82,7 +105,8 @@
     <Compile Include="Domain\VersionedEntity.cs" />
     <Compile Include="EventSourcing\Commit.cs" />
     <Compile Include="EventSourcing\CommitAttempt.cs" />
-    <Compile Include="EventSourcing\Exceptions\UniqueKeyViolationException.cs" />
+    <Compile Include="EventSourcing\EventStoreUnitOfWorkFactory.cs" />
+    <Compile Include="EventSourcing\Extensions\EventStoreExtensions.cs" />
     <Compile Include="EventSourcing\ICommit.cs" />
     <Compile Include="EventSourcing\ICommitEvents.cs" />
     <Compile Include="EventSourcing\OptimisticEventStore.cs" />
@@ -97,8 +121,10 @@
     <Compile Include="EventSourcing\Persistence\Sha1StreamIdHasher.cs" />
     <Compile Include="EventSourcing\Serialization\ISerialize.cs" />
     <Compile Include="EventSourcing\Serialization\JsonSerializer.cs" />
-    <Compile Include="EventSourcing\Serialization\SerializationExtensions.cs" />
+    <Compile Include="EventSourcing\Extensions\SerializationExtensions.cs" />
     <Compile Include="EventSourcing\StreamIdPrefixAttribute.cs" />
+    <Compile Include="EventSourcing\UncommitedEvent.cs" />
+    <Compile Include="EventSourcing\UncommitedEventQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventSourcing\IStoreEvents.cs" />
     <Compile Include="EventSourcing\IEventStream.cs" />

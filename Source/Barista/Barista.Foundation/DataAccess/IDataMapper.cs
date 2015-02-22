@@ -4,7 +4,7 @@ using Barista.Foundation.Domain;
 
 namespace Barista.Foundation.DataAccess
 {
-    public interface IDataMapper
+    public interface IDataMapper : IDisposable
     {
         /// <summary>
         /// Gets a value indicating whether this data mapper is currently maintaining a transaction.

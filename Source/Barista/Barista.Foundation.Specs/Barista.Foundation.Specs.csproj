@@ -48,6 +48,7 @@
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\Barista.Foundation\Barista.Foundation.csproj">
       <Project>{365349f9-80a1-4a8e-9113-addd0e14dfff}</Project>
       <Name>Barista.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Barista\Barista.csproj">
+      <Project>{f1e1c667-58b3-4d3f-aaba-7a532b6ff587}</Project>
+      <Name>Barista</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
