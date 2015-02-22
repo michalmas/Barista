@@ -30,16 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentMigrator">
+      <HintPath>..\packages\FluentMigrator.1.4.0.0\lib\40\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner">
+      <HintPath>..\packages\FluentMigrator.Runner.1.4.0.0\lib\40\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,9 +63,12 @@
   <ItemGroup>
     <Compile Include="Common\Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Common\Exceptions\Error.cs" />
+    <Compile Include="Common\SystemTime.cs" />
     <Compile Include="DataAccess\IDataMapper.cs" />
     <Compile Include="DataAccess\IPersistable.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\Migrations\201502221750_CreateCommitsTable.cs" />
+    <Compile Include="DataAccess\Migrations\MigrationsRunner.cs" />
     <Compile Include="DataAccess\NHibernate\INHibernateRepository.cs" />
     <Compile Include="DataAccess\NHibernate\NHibernateDataMapper.cs" />
     <Compile Include="DataAccess\NHibernate\NHibernateRepository.cs" />
@@ -64,6 +80,24 @@
     <Compile Include="Domain\IEntity.cs" />
     <Compile Include="Domain\IVersionedEntity.cs" />
     <Compile Include="Domain\VersionedEntity.cs" />
+    <Compile Include="EventSourcing\Commit.cs" />
+    <Compile Include="EventSourcing\CommitAttempt.cs" />
+    <Compile Include="EventSourcing\Exceptions\UniqueKeyViolationException.cs" />
+    <Compile Include="EventSourcing\ICommit.cs" />
+    <Compile Include="EventSourcing\ICommitEvents.cs" />
+    <Compile Include="EventSourcing\OptimisticEventStore.cs" />
+    <Compile Include="EventSourcing\OptimisticEventStream.cs" />
+    <Compile Include="EventSourcing\Persistence\Commit.cs" />
+    <Compile Include="EventSourcing\Persistence\CommitRecord.cs" />
+    <Compile Include="EventSourcing\Persistence\CommitRecordClassMap.cs" />
+    <Compile Include="EventSourcing\Persistence\CommitRecordExtensions.cs" />
+    <Compile Include="EventSourcing\Persistence\DataMapperPersistenceEngine.cs" />
+    <Compile Include="EventSourcing\Persistence\IPersistStreams.cs" />
+    <Compile Include="EventSourcing\Persistence\IStreamIdHasher.cs" />
+    <Compile Include="EventSourcing\Persistence\Sha1StreamIdHasher.cs" />
+    <Compile Include="EventSourcing\Serialization\ISerialize.cs" />
+    <Compile Include="EventSourcing\Serialization\JsonSerializer.cs" />
+    <Compile Include="EventSourcing\Serialization\SerializationExtensions.cs" />
     <Compile Include="EventSourcing\StreamIdPrefixAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventSourcing\IStoreEvents.cs" />
@@ -72,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Composition\" />
+    <Folder Include="DataAccess\ClassMaps\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

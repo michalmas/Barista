@@ -11,8 +11,8 @@ namespace Barista.Foundation.Specs
         [TestMethod]
         public void When_i_have_valid_configuration_it_should_work()
         {
-            var config = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString())
+            /*var config = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2008.ConnectionString());*/
         }
     }
 }

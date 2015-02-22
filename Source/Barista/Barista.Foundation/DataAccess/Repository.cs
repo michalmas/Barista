@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 namespace Barista.Foundation.DataAccess
 {
     public abstract class Repository<T> : IRepository<T>
+        where T : class, IPersistable
     {
         protected abstract IQueryable<T> Entities { get; }
 

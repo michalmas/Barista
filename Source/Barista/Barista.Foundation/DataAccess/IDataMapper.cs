@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using Barista.Foundation.Domain;
 
 namespace Barista.Foundation.DataAccess
 {
