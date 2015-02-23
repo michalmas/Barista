@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMigrator">
       <HintPath>..\packages\FluentMigrator.1.4.0.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
@@ -63,11 +66,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\AggregateRetrievalAdapter.cs" />
+    <Compile Include="Commanding\AggregateRootCommand.cs" />
+    <Compile Include="Commanding\Builders\AggregateCommandHandlerBuilder.cs" />
+    <Compile Include="Commanding\Builders\ICommandHandlerBuilder.cs" />
+    <Compile Include="Commanding\Command.cs" />
+    <Compile Include="Commanding\Builders\CommandHandlerBuilder.cs" />
+    <Compile Include="Commanding\CommandBatch.cs" />
+    <Compile Include="Commanding\CommandHandlerExtensions.cs" />
+    <Compile Include="Commanding\CommandNameResolver.cs" />
+    <Compile Include="Commanding\CommandService.cs" />
+    <Compile Include="Commanding\DecoratorPipeline.cs" />
+    <Compile Include="Commanding\IAggregateFactory.cs" />
+    <Compile Include="Commanding\ICommand.cs" />
+    <Compile Include="Commanding\ICommandHandlerRegistry.cs" />
+    <Compile Include="Commanding\ICommandService.cs" />
+    <Compile Include="Commanding\ICreateAggregate.cs" />
+    <Compile Include="Commanding\IHandleCommand.cs" />
+    <Compile Include="Commanding\IHandleCommandOn.cs" />
+    <Compile Include="Commanding\IRegisterCommandHandlers.cs" />
+    <Compile Include="Commanding\IVersionedCommand.cs" />
+    <Compile Include="Commanding\VersionedCommand.cs" />
     <Compile Include="Common\Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Common\Exceptions\Error.cs" />
     <Compile Include="Common\Exceptions\ExceptionExtensions.cs" />
     <Compile Include="Common\Extensions\EventSourcingExtensions.cs" />
     <Compile Include="Common\Extensions\FuncExtensions.cs" />
+    <Compile Include="Common\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Common\Extensions\StaticReflection.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\SystemTime.cs" />
     <Compile Include="DataAccess\DomainUnitOfWork.cs" />
@@ -129,6 +155,9 @@
     <Compile Include="EventSourcing\IStoreEvents.cs" />
     <Compile Include="EventSourcing\IEventStream.cs" />
     <Compile Include="EventSourcing\EventMessage.cs" />
+    <Compile Include="Querying\IQuery.cs" />
+    <Compile Include="Querying\IQueryHandler.cs" />
+    <Compile Include="Querying\IQueryProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Composition\" />
