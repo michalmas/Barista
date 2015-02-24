@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using Barista.Foundation.Domain;
 using NHibernate;
 using NHibernate.Linq;
 

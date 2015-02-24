@@ -1,4 +1,4 @@
-﻿namespace Barista.Foundation.DataAccess
+﻿namespace Barista.Foundation.Domain
 {
     public interface IPersistable
     {

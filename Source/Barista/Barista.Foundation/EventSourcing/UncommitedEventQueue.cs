@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Barista.Foundation.DataAccess;
+using Barista.Foundation.Domain;
 
 namespace Barista.Foundation.EventSourcing
 {

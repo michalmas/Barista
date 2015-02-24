@@ -1,5 +1,5 @@
 ﻿using System;
-using Barista.Foundation.DataAccess;
+using Barista.Foundation.Domain;
 
 namespace Barista.Foundation.EventSourcing.Persistence
 {

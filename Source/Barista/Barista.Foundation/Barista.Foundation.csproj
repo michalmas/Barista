@@ -56,6 +56,7 @@
     <Reference Include="System.Collections.Immutable">
       <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
@@ -74,9 +75,11 @@
     <Compile Include="Commanding\Builders\CommandHandlerBuilder.cs" />
     <Compile Include="Commanding\CommandBatch.cs" />
     <Compile Include="Commanding\CommandHandlerExtensions.cs" />
+    <Compile Include="Commanding\CommandingModule.cs" />
     <Compile Include="Commanding\CommandNameResolver.cs" />
     <Compile Include="Commanding\CommandService.cs" />
     <Compile Include="Commanding\DecoratorPipeline.cs" />
+    <Compile Include="Commanding\HandlerRegistry.cs" />
     <Compile Include="Commanding\IAggregateFactory.cs" />
     <Compile Include="Commanding\ICommand.cs" />
     <Compile Include="Commanding\ICommandHandlerRegistry.cs" />
@@ -86,10 +89,13 @@
     <Compile Include="Commanding\IHandleCommandOn.cs" />
     <Compile Include="Commanding\IRegisterCommandHandlers.cs" />
     <Compile Include="Commanding\IVersionedCommand.cs" />
+    <Compile Include="Commanding\MappedCommandAdapter.cs" />
     <Compile Include="Commanding\VersionedCommand.cs" />
     <Compile Include="Common\Exceptions\ApplicationErrorException.cs" />
     <Compile Include="Common\Exceptions\Error.cs" />
     <Compile Include="Common\Exceptions\ExceptionExtensions.cs" />
+    <Compile Include="Common\Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\Extensions\EventSourcingExtensions.cs" />
     <Compile Include="Common\Extensions\FuncExtensions.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
@@ -98,10 +104,16 @@
     <Compile Include="Common\SystemTime.cs" />
     <Compile Include="DataAccess\DomainUnitOfWork.cs" />
     <Compile Include="DataAccess\IUnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\NHibernate\INHibernateDataMapper.cs" />
+    <Compile Include="DataAccess\NHibernate\NHibernateUnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\ProjectionsUnitOfWork.cs" />
     <Compile Include="DataAccess\StatefulUnitOfWork.cs" />
     <Compile Include="DataAccess\UnitOfWork.cs" />
     <Compile Include="DataAccess\UnitOfWorkFactory.cs" />
     <Compile Include="DataAccess\UnitOfWorkOption.cs" />
+    <Compile Include="Denormalization\Denormalizer.cs" />
+    <Compile Include="Denormalization\IdentityBasedDenormalizer.cs" />
+    <Compile Include="Denormalization\MissingProjectionBehavior.cs" />
     <Compile Include="Domain\AggregateState.cs" />
     <Compile Include="Domain\EventAppliedArgs.cs" />
     <Compile Include="Domain\EventMappingCache.cs" />
@@ -112,9 +124,16 @@
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IAggregateRootKey.cs" />
     <Compile Include="Domain\IEventSource.cs" />
+    <Compile Include="Domain\IHaveVersion.cs" />
+    <Compile Include="Domain\IQueryModel.cs" />
+    <Compile Include="EventSourcing\DenormalizationCommand.cs" />
+    <Compile Include="EventSourcing\DenormalizationCommandBuilder.cs" />
+    <Compile Include="EventSourcing\DispatchContext.cs" />
+    <Compile Include="EventSourcing\EventMetadata.cs" />
+    <Compile Include="EventSourcing\EventStoreCommitDispatcher.cs" />
     <Compile Include="EventSourcing\EventStoreDataMapper.cs" />
     <Compile Include="DataAccess\IDataMapper.cs" />
-    <Compile Include="DataAccess\IPersistable.cs" />
+    <Compile Include="Domain\IPersistable.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\Migrations\201502221750_CreateCommitsTable.cs" />
     <Compile Include="DataAccess\Migrations\MigrationsRunner.cs" />
@@ -134,7 +153,10 @@
     <Compile Include="EventSourcing\EventStoreUnitOfWorkFactory.cs" />
     <Compile Include="EventSourcing\Extensions\EventStoreExtensions.cs" />
     <Compile Include="EventSourcing\ICommit.cs" />
+    <Compile Include="EventSourcing\ICommitDispatcher.cs" />
     <Compile Include="EventSourcing\ICommitEvents.cs" />
+    <Compile Include="EventSourcing\IDenormalize.cs" />
+    <Compile Include="EventSourcing\IDenormalizerProvider.cs" />
     <Compile Include="EventSourcing\OptimisticEventStore.cs" />
     <Compile Include="EventSourcing\OptimisticEventStream.cs" />
     <Compile Include="EventSourcing\Persistence\Commit.cs" />
@@ -149,8 +171,11 @@
     <Compile Include="EventSourcing\Serialization\JsonSerializer.cs" />
     <Compile Include="EventSourcing\Extensions\SerializationExtensions.cs" />
     <Compile Include="EventSourcing\StreamIdPrefixAttribute.cs" />
+    <Compile Include="EventSourcing\DenormalizerProvider.cs" />
     <Compile Include="EventSourcing\UncommitedEvent.cs" />
     <Compile Include="EventSourcing\UncommitedEventQueue.cs" />
+    <Compile Include="Hosting\BaristaAssemblyFinder.cs" />
+    <Compile Include="Hosting\IBaristaAssemblyFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventSourcing\IStoreEvents.cs" />
     <Compile Include="EventSourcing\IEventStream.cs" />

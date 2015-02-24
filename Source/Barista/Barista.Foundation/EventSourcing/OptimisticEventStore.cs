@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Barista.Foundation.EventSourcing.Persistence;
 
 namespace Barista.Foundation.EventSourcing
@@ -7,8 +8,9 @@ namespace Barista.Foundation.EventSourcing
     public class OptimisticEventStore : IStoreEvents, ICommitEvents
     {
         private readonly IPersistStreams _persistence;
+        private readonly ICommitDispatcher _commitDispatcher;
 
-        public OptimisticEventStore(IPersistStreams persistence)
+        public OptimisticEventStore(IPersistStreams persistence, ICommitDispatcher commitDispatcher)
         {
             if (persistence == null)
             {
@@ -16,6 +18,7 @@ namespace Barista.Foundation.EventSourcing
             }
 
             _persistence = persistence;
+            _commitDispatcher = commitDispatcher;
         }
 
         public virtual IEnumerable<ICommit> GetFrom(string streamId, int minRevision, int maxRevision)
@@ -26,6 +29,8 @@ namespace Barista.Foundation.EventSourcing
         public virtual ICommit Commit(CommitAttempt attempt)
         {
             ICommit commit = _persistence.Commit(attempt);
+
+            _commitDispatcher.Dispatch(commit);
 
             return commit;
         }

@@ -10,7 +10,7 @@ using NHibernate.Criterion;
 
 namespace Barista.Foundation.DataAccess.NHibernate
 {
-    public class NHibernateDataMapper : IDataMapper
+    public class NHibernateDataMapper : IDataMapper, INHibernateDataMapper
     {
         private ISession session;
         private Dictionary<Type, object> repositories = new Dictionary<Type, object>();

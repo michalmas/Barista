@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using Autofac;
+using Barista.Commands;
 using Barista.DataAccess;
+using Barista.Foundation.Commanding;
+using Barista.Foundation.Common.Extensions;
 using Barista.Foundation.DataAccess;
 using Barista.Foundation.DataAccess.Migrations;
 using Barista.Foundation.DataAccess.NHibernate;
@@ -19,54 +23,13 @@ using NHibernate.Dialect;
 
 namespace Barista.Foundation.Specs.EventSourcing
 {
-    public class DaCreatedEvent : Event
-    {
-        public Guid Identity { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class DaState : AggregateState
-    {
-        public Guid Identity { get; private set; }
-
-        public string Name { get; private set; }
-
-        public void When(DaCreatedEvent @event)
-        {
-            Identity = @event.Identity;
-            Name = @event.Name;
-        }
-    }
-
-    [StreamIdPrefix("Barista")]
-    public class Da : EventSource<DaState>
-    {
-        [Identity]
-        public Guid Identity { get { return AggregateState.Identity; } }
-
-        public string Name { get { return AggregateState.Name; } }
-
-        public Da()
-        {
-            
-        }
-
-        public Da(string name)
-        {
-            Apply(new DaCreatedEvent
-            {
-                Identity = Guid.NewGuid(),
-                Name = name
-            });
-        }
-    }
-
     [TestClass]
     public class UnitTest1
     {
         [TestMethod]
         public void TestMethod1()
         {
+            MigrationsRunner.Migrate(0);
             MigrationsRunner.Migrate();
 
             var sessFact = Fluently
@@ -85,16 +48,63 @@ namespace Barista.Foundation.Specs.EventSourcing
 
             var persistence = new DataMapperPersistenceEngine(new NHibernateDataMapper(sessFact.OpenSession()), new JsonSerializer(), new Sha1StreamIdHasher());
 
-            var eventStore = new OptimisticEventStore(persistence);
+            
+
+            var containerBuilder = new ContainerBuilder();
+
+            containerBuilder
+                .RegisterAssemblyTypes(typeof(BaristaProjectionsUnitOfWork).Assembly)
+                .Where(type => type.IsSubclassOfRawGeneric(typeof(IDenormalize<>)))
+                .AsImplementedInterfaces().InstancePerDependency();
+
+            var container = containerBuilder.Build();
+
+            Func<UnitOfWorkOption, BaristaProjectionsUnitOfWork> f = null;
+
+            var eventStore = new OptimisticEventStore(persistence, new EventStoreCommitDispatcher<BaristaProjectionsUnitOfWork>((x) => f(x), new DenormalizerProvider(container)));
 
             var uowFact = new BaristaUnitOfWorkFactory(new Lazy<IStoreEvents>(() => eventStore));
+            var pUowFact = new BaristaProjectionsUnitOfWorkFactory();
 
-            var uow = uowFact.Create();
+            f = pUowFact.Create;
 
-            var da = uow.Get<Da>(Guid.Parse("f1d997dd-2ad5-46bc-8f08-c4dc1d03eebf"));
+            containerBuilder = new ContainerBuilder();
 
-            //uow.Add(da);
-            //uow.SubmitChanges();
+            containerBuilder.Register(x => uowFact.Create());
+            containerBuilder.Register(x => pUowFact.Create());
+
+            containerBuilder
+                .RegisterAssemblyTypes(typeof(CommandHandlerRegistrations).Assembly)
+                .AsClosedTypesOf(typeof(IHandleCommand<>));
+
+            containerBuilder
+                .RegisterAssemblyTypes(typeof(CommandHandlerRegistrations).Assembly)
+                .AsClosedTypesOf(typeof(ICreateAggregate<,>));
+
+            containerBuilder.RegisterModule(new CommandingModule());
+
+            containerBuilder.Update(container);
+
+            using (var uow = uowFact.Create())
+            {
+                var commandService = new BaristaCommandService(container, uowFact.Create);
+
+                var id = Guid.NewGuid();
+
+                commandService.Execute(new CreateOrderCommand
+                {
+                    Identity = id,
+                    BaristaName = "Cristian"
+                });
+
+                commandService.Execute(new AddOrderItemCommand
+                {
+                    OrderIdentity = id,
+
+                    ProductName = "Beer",
+                    Quantity = 100
+                });
+            }
         }
     }
 }
